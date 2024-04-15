@@ -41,7 +41,7 @@ public class App implements CommandLineRunner {
                         salir = true;
                         break;
                     case 1:
-                        AppController.viewAllTrainers(trainerRepository);
+                        AppController.register();
                         break;
                     case 2:
                         break;
@@ -60,7 +60,7 @@ public class App implements CommandLineRunner {
                     case 4:
                         break;
                     case 5:
-
+                        AppController.viewPokemonByTrainer(pokemonRepository,trainerRepository);
                         break;
                 }
             }
@@ -82,7 +82,7 @@ public class App implements CommandLineRunner {
             System.out.println(AnsiColor.RED.getCode());
             System.out.println("------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.BLUE.getCode());
-            System.out.println("0 Logout | 1 My Pokemons | 2 Catch Pokemon | 3 Release Pokemon | 4 Otheer trainers | 5 Find other trainers' Pokemons");
+            System.out.println("0 Logout | 1 My Pokemons | 2 Catch Pokemon | 3 Release Pokemon | 4 Other trainers | 5 Find other trainers' Pokemons");
             System.out.println(AnsiColor.RED.getCode());
             System.out.println("------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.RESET.getCode());
