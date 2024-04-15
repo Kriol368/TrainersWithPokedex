@@ -60,7 +60,7 @@ public class App implements CommandLineRunner {
                     case 4:
                         break;
                     case 5:
-                        AppController.viewPokemonByTrainer(pokemonRepository,trainerRepository);
+                        AppController.viewPokemonByTrainer(pokemonRepository, trainerRepository);
                         break;
                 }
             }
@@ -110,7 +110,7 @@ public class App implements CommandLineRunner {
         while (true) {
             try {
                 option = Integer.parseInt(sc.next());
-                if (curentScreen == 0 && option < 2 || curentScreen == 1 && option < 5) {
+                if (curentScreen == 0 && option < 3 || curentScreen == 1 && option < 6) {
                     break;
                 } else {
                     System.out.println(AnsiColor.RED.getCode());
