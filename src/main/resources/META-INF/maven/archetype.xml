@@ -1,7 +1,7 @@
 <archetype>
   <id>jpa</id>
   <sources>
-    <source>src/main/java/pokemon.App.java</source>
+    <source>src/main/java/pokedex.App.java</source>
   </sources>
   <testSources>
     <source>src/test/java/AppTest.java</source>

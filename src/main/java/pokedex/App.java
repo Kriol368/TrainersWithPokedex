@@ -1,10 +1,10 @@
-package pokemon;
+package pokedex;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import pokemon.repository.PokemonRepository;
-import pokemon.repository.TrainerRepository;
+import pokedex.repository.PokemonRepository;
+import pokedex.repository.TrainerRepository;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -28,23 +28,43 @@ public class App implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws SQLException {
         int opcion;
         printBanner();
         boolean salir = false;
         while (!salir) {
             printMenu();
             opcion = selectedOption();
-            switch (opcion) {
-                case 0:
-                    salir = true;
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
+            if (curentScreen == 0) {
+                switch (opcion) {
+                    case 0:
+                        salir = true;
+                        break;
+                    case 1:
+                        AppController.viewAllTrainers(trainerRepository);
+                        break;
+                    case 2:
+                        break;
+                }
+            } else if (curentScreen == 1) {
+                switch (opcion) {
+                    case 0:
+                        salir = true;
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
 
+                        break;
+                }
             }
+
         }
     }
 
@@ -58,11 +78,11 @@ public class App implements CommandLineRunner {
             System.out.println(AnsiColor.RED.getCode());
             System.out.println("------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.RESET.getCode());
-        }else if (curentScreen == 1){
+        } else if (curentScreen == 1) {
             System.out.println(AnsiColor.RED.getCode());
             System.out.println("------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.BLUE.getCode());
-            System.out.println("0 Logout | 1 My Pokemons | 2 Catch Pokemon | Other trainer");
+            System.out.println("0 Logout | 1 My Pokemons | 2 Catch Pokemon | 3 Release Pokemon | 4 Otheer trainers | 5 Find other trainers' Pokemons");
             System.out.println(AnsiColor.RED.getCode());
             System.out.println("------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.RESET.getCode());
@@ -90,7 +110,7 @@ public class App implements CommandLineRunner {
         while (true) {
             try {
                 option = Integer.parseInt(sc.next());
-                if (curentScreen == 0 && option > 2 || curentScreen == 1 && option > 3) {
+                if (curentScreen == 0 && option < 2 || curentScreen == 1 && option < 5) {
                     break;
                 } else {
                     System.out.println(AnsiColor.RED.getCode());

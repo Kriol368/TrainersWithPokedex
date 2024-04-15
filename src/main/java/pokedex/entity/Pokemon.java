@@ -1,4 +1,4 @@
-package pokemon.entity;
+package pokedex.entity;
 
 import jakarta.persistence.*;
 

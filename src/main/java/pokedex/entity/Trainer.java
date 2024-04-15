@@ -1,4 +1,4 @@
-package pokemon.entity;
+package pokedex.entity;
 
 import jakarta.persistence.*;
 
@@ -12,7 +12,7 @@ public class Trainer {
     private int trainerID;
 
     private String name;
-    @OneToMany(mappedBy = "trainerID", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "trainer", fetch=FetchType.EAGER)
     private List<Pokemon> pokemons;
 
     public Trainer() {
