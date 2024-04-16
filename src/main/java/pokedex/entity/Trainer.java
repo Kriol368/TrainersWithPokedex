@@ -12,14 +12,13 @@ public class Trainer {
     private int trainerID;
 
     private String name;
-    @OneToMany(mappedBy = "trainer", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "trainer", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Pokemon> pokemons;
 
     public Trainer() {
     }
 
     public Trainer(int trainerID, String name) {
-        this.trainerID = trainerID;
         this.name = name;
         this.pokemons = new ArrayList<>();
     }

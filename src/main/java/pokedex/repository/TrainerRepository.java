@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 public interface TrainerRepository extends CrudRepository<Trainer, Integer> {
-    List<Trainer> findAllByName(String name);
     List<Trainer> findBy();
     Trainer findByTrainerID(int trainerID);
+    List<Trainer> findAllByTrainerIDIsNot(int trainerID);
 }

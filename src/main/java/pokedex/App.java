@@ -3,6 +3,7 @@ package pokedex;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import pokedex.entity.Trainer;
 import pokedex.repository.PokemonRepository;
 import pokedex.repository.TrainerRepository;
 
@@ -14,9 +15,8 @@ public class App implements CommandLineRunner {
 
     private final PokemonRepository pokemonRepository;
     private final TrainerRepository trainerRepository;
-    private static int curentScreen = 0;
-    private static String trainerName;
-    private static int trainerID;
+    public static int curentScreen = 0;
+    public static Trainer trainer;
 
     public App(PokemonRepository pokemonRepository, TrainerRepository trainerRepository) {
         this.pokemonRepository = pokemonRepository;
@@ -41,7 +41,7 @@ public class App implements CommandLineRunner {
                         salir = true;
                         break;
                     case 1:
-                        AppController.register();
+                        AppController.login(trainerRepository);
                         break;
                     case 2:
                         break;
@@ -49,15 +49,19 @@ public class App implements CommandLineRunner {
             } else if (curentScreen == 1) {
                 switch (opcion) {
                     case 0:
-                        salir = true;
+                        curentScreen = 0;
                         break;
                     case 1:
+                        AppController.viewMyPokemons(pokemonRepository);
                         break;
                     case 2:
+                        AppController.catchPokemon(pokemonRepository);
                         break;
                     case 3:
+                        AppController.releasePokemon(pokemonRepository);
                         break;
                     case 4:
+                        AppController.otherTrainers(trainerRepository);
                         break;
                     case 5:
                         AppController.viewPokemonByTrainer(pokemonRepository, trainerRepository);
@@ -72,19 +76,19 @@ public class App implements CommandLineRunner {
     public static void printMenu() {
         if (curentScreen == 0) {
             System.out.println(AnsiColor.RED.getCode());
-            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.BLUE.getCode());
             System.out.println("0 Exit | 1 Login | 2 Register");
             System.out.println(AnsiColor.RED.getCode());
-            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.RESET.getCode());
         } else if (curentScreen == 1) {
             System.out.println(AnsiColor.RED.getCode());
-            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.BLUE.getCode());
-            System.out.println("0 Logout | 1 My Pokemons | 2 Catch Pokemon | 3 Release Pokemon | 4 Other trainers | 5 Find other trainers' Pokemons");
+            System.out.println("0 Logout " + trainer.getName() + " | 1 My Pokemons | 2 Catch Pokemon | 3 Release Pokemon | 4 Other trainers | 5 View other trainers Pokemons");
             System.out.println(AnsiColor.RED.getCode());
-            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.RESET.getCode());
         }
 
