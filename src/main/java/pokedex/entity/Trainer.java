@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class Trainer {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int trainerID;
 
     private String name;
@@ -19,6 +19,12 @@ public class Trainer {
     }
 
     public Trainer(int trainerID, String name) {
+        this.trainerID = trainerID;
+        this.name = name;
+        this.pokemons = new ArrayList<>();
+    }
+
+    public Trainer(String name) {
         this.name = name;
         this.pokemons = new ArrayList<>();
     }
@@ -46,8 +52,9 @@ public class Trainer {
     public void setPokemons(List<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.trainerID + " - " + this.name;
     }
 }

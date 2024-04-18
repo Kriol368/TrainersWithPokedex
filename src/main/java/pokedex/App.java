@@ -7,20 +7,19 @@ import pokedex.entity.Trainer;
 import pokedex.repository.PokemonRepository;
 import pokedex.repository.TrainerRepository;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 @SpringBootApplication
 public class App implements CommandLineRunner {
 
-    private final PokemonRepository pokemonRepository;
-    private final TrainerRepository trainerRepository;
-    public static int curentScreen = 0;
-    public static Trainer trainer;
+    public static int currentScreen = 0;
+    public static Trainer trainer = null;
+    private static PokemonRepository pokemonRepository;
+    private static TrainerRepository trainerRepository;
 
     public App(PokemonRepository pokemonRepository, TrainerRepository trainerRepository) {
-        this.pokemonRepository = pokemonRepository;
-        this.trainerRepository = trainerRepository;
+        App.pokemonRepository = pokemonRepository;
+        App.trainerRepository = trainerRepository;
     }
 
     public static void main(String[] args) {
@@ -28,43 +27,44 @@ public class App implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws SQLException {
+    public void run(String... args) {
         int opcion;
         printBanner();
         boolean salir = false;
         while (!salir) {
             printMenu();
             opcion = selectedOption();
-            if (curentScreen == 0) {
+            if (currentScreen == 0) {
                 switch (opcion) {
                     case 0:
                         salir = true;
                         break;
                     case 1:
-                        AppController.login(trainerRepository);
+                        trainer = AppController.login(trainerRepository);
                         break;
                     case 2:
+                        AppController.register(trainerRepository);
                         break;
                 }
-            } else if (curentScreen == 1) {
+            } else if (currentScreen == 1) {
                 switch (opcion) {
                     case 0:
-                        curentScreen = 0;
+                        currentScreen = 0;
                         break;
                     case 1:
-                        AppController.viewMyPokemons(pokemonRepository);
+                        AppController.viewMyPokemons(trainer, pokemonRepository);
                         break;
                     case 2:
-                        AppController.catchPokemon(pokemonRepository);
+                        AppController.catchPokemon(trainer, pokemonRepository);
                         break;
                     case 3:
-                        AppController.releasePokemon(pokemonRepository);
+                        AppController.releasePokemon(trainer, pokemonRepository);
                         break;
                     case 4:
-                        AppController.otherTrainers(trainerRepository);
+                        AppController.otherTrainers(trainer, trainerRepository);
                         break;
                     case 5:
-                        AppController.viewPokemonByTrainer(pokemonRepository, trainerRepository);
+                        AppController.viewPokemonByTrainer(trainer, trainerRepository, pokemonRepository);
                         break;
                 }
             }
@@ -74,7 +74,7 @@ public class App implements CommandLineRunner {
 
 
     public static void printMenu() {
-        if (curentScreen == 0) {
+        if (currentScreen == 0) {
             System.out.println(AnsiColor.RED.getCode());
             System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.BLUE.getCode());
@@ -82,7 +82,7 @@ public class App implements CommandLineRunner {
             System.out.println(AnsiColor.RED.getCode());
             System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.RESET.getCode());
-        } else if (curentScreen == 1) {
+        } else if (currentScreen == 1) {
             System.out.println(AnsiColor.RED.getCode());
             System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println(AnsiColor.BLUE.getCode());
@@ -114,7 +114,7 @@ public class App implements CommandLineRunner {
         while (true) {
             try {
                 option = Integer.parseInt(sc.next());
-                if (curentScreen == 0 && option < 3 || curentScreen == 1 && option < 6) {
+                if (currentScreen == 0 && option < 3 || currentScreen == 1 && option < 6) {
                     break;
                 } else {
                     System.out.println(AnsiColor.RED.getCode());

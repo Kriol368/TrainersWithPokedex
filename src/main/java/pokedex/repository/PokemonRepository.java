@@ -10,5 +10,6 @@ import java.util.List;
 @Component
 public interface PokemonRepository extends CrudRepository<Pokemon, Integer> {
     List<Pokemon> findAllByTrainer(Trainer trainer);
+
     Pokemon findByNumber(int number);
 }
